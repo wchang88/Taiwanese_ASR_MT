@@ -1,8 +1,8 @@
-import os
+import os, sys
 import numpy as np
 np.random.seed(11737)
 
-CORPUS_DIR = "/home/cuichenx/Datasets/TaiwaneseDatasets/icorpus_ka1_han3-ji7"  # change to your path
+CORPUS_DIR = sys.argv[1]  # change to your path
 OUTPUT_DIR = "data/icorpus_raw/nan_cmn"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 valtest_ratio = 0.05  # 0.90|0.05|0.05
