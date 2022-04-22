@@ -12,6 +12,7 @@ VOCAB_SIZE=8000
 FAIR_SCRIPTS=$FAIRSEQ_DIR/scripts
 SPM_TRAIN=$FAIR_SCRIPTS/spm_train.py
 SPM_ENCODE=$FAIR_SCRIPTS/spm_encode.py
+ICORPUS_PATH="/home/cuichenx/Datasets/TaiwaneseDatasets/icorpus_ka1_han3-ji7"  ## CHANGE ME
 
 LANGS=(nan)
 TRG_LANG=cmn
@@ -23,7 +24,7 @@ for i in ${!LANGS[*]}; do
   PROC_DDIR=data/icorpus_processed/"$LANG"_spm"$VOCAB_SIZE"/
   BINARIZED_DDIR=data/icorpus_binarized/"$LANG"_spm"$VOCAB_SIZE"/
 
-  python process_icorpus.py "/home/cuichenx/Datasets/TaiwaneseDatasets/icorpus_ka1_han3-ji7"
+  python process_icorpus.py $ICORPUS_PATH
 
   mkdir -p "$PROC_DDIR"/"$LANG"_"$TRG_LANG"
 
