@@ -36,11 +36,37 @@ def diacritics2numbers(line):
     line = re.sub(r' (-) ', r"\1", line)
     # the double dash does not have a dash preceding it
     line = re.sub(r'(--) ', r"\1", line)
+
+    # use fullwidth punctuations because the training data had them
+    line = line.replace(",", "，\n")
+    line = line.replace(".", "。\n")
+    line = line.replace("?", "？\n")
+    line = line.replace("!", "！\n")
+    line = line.replace('"', "")  # remove quotation marks
     return line
 
 
+def process(line):
+    lines = diacritics2numbers(line).split("\n")
+    # sentence has to contain at least one letter
+    ret = [l.strip()+'\n' for l in lines if re.match(r'[a-z]', l.strip()) is not None]
+    return ret
+
+
 sentences = pd.read_csv(siusann_path)['羅馬字'].to_list()
-out_sentences = [diacritics2numbers(sent)+'\n' for sent in sentences]
+print(len(sentences))
+out_sentences = []
+sentence_numbers = []
+for i, sent in enumerate(sentences):
+    out_sents = process(sent)
+    out_sentences.extend(out_sents)
+    sentence_numbers.extend([f'{i}\n'] * len(out_sents)) 
+
+
+
 
 with open(output_path, 'w') as f:
     f.writelines(out_sentences)
+
+with open(output_path+'.id', 'w') as f:
+    f.writelines(sentence_numbers)
