@@ -13,6 +13,8 @@ def get_args():
     parser.add_argument("ref", type=str)
     parser.add_argument("--comet-dir", type=str, default=None)
     parser.add_argument("--src", type=str)
+    parser.add_argument("--calculate_cer", action='store_true')
+    parser.add_argument("--trg_lang", type=str, default="")
 
     # experiments
     parser.add_argument("--sentlen", action="store_true",
@@ -32,7 +34,8 @@ def get_args():
 def calculate_bleu(hyps, refs):
     # gets corpus-level non-ml evaluation metrics
     # corpus-level BLEU
-    bleu = sacrebleu.metrics.BLEU()
+    kwargs = {'tokenize': 'zh'} if args.trg_lang=='zh' else {}
+    bleu = sacrebleu.metrics.BLEU(**kwargs)
     score = bleu.corpus_score(hyps, [refs]).format()
     return score
 
@@ -46,6 +49,29 @@ def calculate_comet(hyps, refs, srcs, comet_model):
     )
 
     return comet_score
+
+
+def get_edit_distance(s1, s2):
+    if len(s1) > len(s2):
+        s1, s2 = s2, s1
+
+    distances = range(len(s1) + 1)
+    for i2, c2 in enumerate(s2):
+        distances_ = [i2+1]
+        for i1, c1 in enumerate(s1):
+            if c1 == c2:
+                distances_.append(distances[i1])
+            else:
+                distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
+        distances = distances_
+    return distances[-1]
+
+def calculate_cer(hyps, refs):
+    cumul_cer = 0
+    for hyp, ref in zip(hyps, refs):
+        cumul_cer += get_edit_distance(hyp, ref) / len(ref)
+    return cumul_cer / len(hyps)
+
 
 def calculate_scores(hyps, refs, srcs, comet_model):
     bleu_score = calculate_bleu(hyps, refs)
@@ -279,6 +305,9 @@ def main(args):
             bleu_score, comet_score = calculate_scores(hyps, refs, srcs, comet_model)
             print(bleu_score)
             print(f"COMET = {comet_score:.4f}")
+            if args.calculate_cer:
+                cer = calculate_cer(hyps, refs)
+                print(f"CER = {cer:.4f}")
         
 
 if __name__ == "__main__":
