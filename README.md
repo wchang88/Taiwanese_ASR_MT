@@ -1,6 +1,6 @@
 # Taiwanese_ASR_MT
 11737 Project: Cascade vs Pseudo-label Speech Translation from Taiwanese to Mandarin
-Please see our paper [here](todo)
+Please see our paper [here](https://github.com/cuichenx/Taiwanese_ASR_MT/blob/main/Cascade%20vs%20Pseudo-Label%20Speech%20to%20Text%20Translation%20from%20Taiwanese%20to%20Mandarin.pdf)
 
 ## Data
 - [iCorpus](https://github.com/Taiwanese-Corpus/icorpus_ka1_han3-ji7) (MT)
