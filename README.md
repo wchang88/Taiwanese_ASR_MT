@@ -34,4 +34,4 @@ Alternatively, you can run `cascade_all.sh` to evaluate all the different runs i
 
 
 ### ASR
-Please see this [ESPNet fork] (https://github.com/yunhsuanchen/espnet/tree/master/egs2/nan_suisiann/asr1) for training ASR models and ST models with pseudo label. We use the standard ESPNet training procedures.
+Please see this [ESPNet fork](https://github.com/yunhsuanchen/espnet/tree/master/egs2/nan_suisiann/asr1) for training ASR models and ST models with pseudo label. We use the standard ESPNet training procedures.
