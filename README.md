@@ -12,6 +12,7 @@ Please see our paper [here](https://github.com/cuichenx/Taiwanese_ASR_MT/blob/ma
 - Run `pip install -r requirements.txt` to install necessary dependencies  
 - Set the FAIRSEQ_DIR environmental variable via `export FAIRSEQ_DIR="/path/to/fairseq/"`  
 ### MT
+- Change to the MT directory
 - Process the input data with `preprocess-icorpus-bilingual.sh /path/to/icorpus/directory`.
 - Train the model with `traineval_nan_cmn.sh`
 
