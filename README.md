@@ -8,9 +8,11 @@ Please see our paper [here](https://github.com/cuichenx/Taiwanese_ASR_MT/blob/ma
 - [TAT-Vol2 Sample](https://sites.google.com/speech.ntut.edu.tw/fsw/home/tat-corpus?authuser=0) (ASR)
 
 ## To Run
+### Setup
+- Run `pip install -r requirements.txt` to install necessary dependencies  
+- Set the FAIRSEQ_DIR environmental variable via `export FAIRSEQ_DIR="/path/to/fairseq/"`  
 ### MT
-- Process the input data with `preprocess-icorpus-bilingual.sh`.
-Make sure to change the ICORPUS_PATH variable in the script.
+- Process the input data with `preprocess-icorpus-bilingual.sh /path/to/icorpus/directory`.
 - Train the model with `traineval_nan_cmn.sh`
 
 Once model is trained, we can apply it to 1) the SuiSiann dataset, or 2) the output of ASR, 
