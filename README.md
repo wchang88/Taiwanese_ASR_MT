@@ -10,6 +10,7 @@ Please see our paper [here](https://github.com/cuichenx/Taiwanese_ASR_MT/blob/ma
 ## To Run
 ### Setup
 - Run `pip install -r requirements.txt` to install necessary dependencies  
+- Install fairseq
 - Set the FAIRSEQ_DIR environmental variable via `export FAIRSEQ_DIR="/path/to/fairseq/"`  
 ### MT
 - Change to the MT directory
