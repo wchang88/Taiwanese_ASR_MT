@@ -1,0 +1,5 @@
+unbabel-comet
+sacremoses
+sentencepieces
+numpy
+spacy
