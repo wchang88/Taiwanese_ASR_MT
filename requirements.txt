@@ -1,5 +1,5 @@
 unbabel-comet
 sacremoses
-sentencepieces
+sentencepiece
 numpy
 spacy
