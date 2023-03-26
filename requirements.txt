@@ -1,5 +1,5 @@
+numpy>=1.21.3
+spacy
 unbabel-comet
 sacremoses
 sentencepiece
-numpy
-spacy
