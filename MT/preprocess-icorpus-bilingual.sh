@@ -12,7 +12,7 @@ VOCAB_SIZE=8000
 FAIR_SCRIPTS=$FAIRSEQ_DIR/scripts
 SPM_TRAIN=$FAIR_SCRIPTS/spm_train.py
 SPM_ENCODE=$FAIR_SCRIPTS/spm_encode.py
-ICORPUS_PATH="/home/cuichenx/Datasets/TaiwaneseDatasets/icorpus_ka1_han3-ji7"  ## CHANGE ME
+ICORPUS_PATH=$1
 
 LANGS=(nan)
 TRG_LANG=cmn
