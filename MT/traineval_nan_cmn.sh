@@ -39,6 +39,7 @@ echo "evaluating test set"
 python score.py "$MODEL_DIR"/test_b5.pred "$RAW_DATA"/test.orig.cmn \
     --src "$RAW_DATA"/test.orig.nan \
     --comet-dir $COMET_DIR \
+    --trg_lang zh \
     | tee "$MODEL_DIR"/test_b5.score
 
 fairseq-generate $BINARIZED_DATA \
@@ -52,4 +53,5 @@ echo "evaluating valid set"
 python score.py "$MODEL_DIR"/valid_b5.pred "$RAW_DATA"/dev.orig.cmn \
     --src "$RAW_DATA"/dev.orig.nan \
     --comet-dir $COMET_DIR \
+    --trg_lang zh \
     | tee "$MODEL_DIR"/valid_b5.score
