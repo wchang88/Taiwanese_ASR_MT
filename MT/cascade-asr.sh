@@ -24,7 +24,7 @@ RUN_ID=$1
 RAW_DDIR=$CASCADE_DIR/$RUN_ID/raw/
 PROC_DDIR=$CASCADE_DIR/$RUN_ID/processed/
 BINARIZED_DDIR=$CASCADE_DIR/$RUN_ID/binarized/
-CASCADE_OUT=$CASCADE_DIR/$RUN_ID/out
+CASCADE_OUT=$CASCADE_DIR/$RUN_ID/out/
 MODEL_DIR=checkpoints/icorpus_nan_spm8000/nan_cmn/
 
 mkdir -p $RAW_DDIR
@@ -34,7 +34,7 @@ mkdir -p $CASCADE_OUT
 
 # Preprocess the ASR data
 ASR_PATH=$2
-python process_cascade_asr.py $ASR_PATH "$RAW_DDIR"/"$LANG"_"$TRG_LANG"/asr.orig.$LANG
+python process_cascade_asr.py $ASR_PATH "$RAW_DDIR"/test.orig.$LANG
 
 spm_model=data/icorpus_processed/nan_spm8000/nan_cmn/spm8000.model
 
@@ -67,7 +67,7 @@ fairseq-generate $BINARIZED_DDIR \
     --beam 5 > "$CASCADE_OUT"/asr_b5.rawpred
 
 echo "aligning fairseq-generate predictions to original inputs"
-test_gold_size=$(wc -l < "$RAW_DDIR"/asr.orig.nan.id)
+test_gold_size=$(wc -l < "$RAW_DDIR"/test.orig.nan.id)
 python postprocess_fairseq-gen.py "$CASCADE_OUT"/asr_b5.rawpred \
     "$CASCADE_OUT"/asr_b5.pred \
     "$test_gold_size"
