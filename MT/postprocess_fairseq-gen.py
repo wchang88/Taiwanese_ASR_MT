@@ -28,7 +28,7 @@ if __name__ == '__main__':
             if line[0] == 'D': # 'D' indicated the de-tokenized hypothesis
                # strip and clean
                splt = line.split()
-               line_id = splt[0][2:] # lines always begin with <letter><dash><ID>
+               line_id = int(splt[0][2:]) # lines always begin with <letter><dash><ID>
                if line_id in preds:
                    print("SOMETHING WENT WRONG! THERE WAS A DUPLICATE ID!!")
                preds[line_id] = line[len(splt[0]) + len(splt[1]) + 2:] # strip out the fairseq-gen identifiers
