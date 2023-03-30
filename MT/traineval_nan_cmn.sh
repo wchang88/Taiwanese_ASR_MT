@@ -28,12 +28,19 @@ fairseq-train \
 	--log-interval 20 2>&1 | tee $MODEL_DIR/train.log 
 
 # translate & eval the valid and test set
+echo "predicting the test set"
 fairseq-generate $BINARIZED_DATA \
     --gen-subset test \
     --path $MODEL_DIR/checkpoint_best.pt \
     --batch-size 32 \
     --remove-bpe sentencepiece \
-    --beam 5  | grep ^H | cut -c 3- | sort -n | cut -f3- > "$MODEL_DIR"/test_b5.pred
+    --beam 5 > "$MODEL_DIR"/test_b5.rawpred
+
+echo "aligning fairseq-generate predictions to gold truths for test set"
+test_gold_size=$(wc -l < "$RAW_DATA"/test.orig.cmn)
+python postprocess_fairseq-gen.py "$MODEL_DIR"/test_b5.rawpred \
+    "$MODEL_DIR"/test_b5.pred \
+    "$test_gold_size"
 
 echo "evaluating test set"
 python score.py "$MODEL_DIR"/test_b5.pred "$RAW_DATA"/test.orig.cmn \
@@ -42,12 +49,19 @@ python score.py "$MODEL_DIR"/test_b5.pred "$RAW_DATA"/test.orig.cmn \
     --trg_lang zh \
     | tee "$MODEL_DIR"/test_b5.score
 
+echo "predicting the valid set"
 fairseq-generate $BINARIZED_DATA \
     --gen-subset valid \
     --path $MODEL_DIR/checkpoint_best.pt \
     --batch-size 32 \
     --remove-bpe sentencepiece \
-    --beam 5 | grep ^H | cut -c 3- | sort -n | cut -f3- > "$MODEL_DIR"/valid_b5.pred
+    --beam 5 > "$MODEL_DIR"/valid_b5.rawpred
+
+echo "aligning fairseq-generate predictions to gold truths for valid set"
+valid_gold_size=$(wc -l < "$RAW_DATA"/dev.orig.cmn)
+python postprocess_fairseq-gen.py "$MODEL_DIR"/valid_b5.rawpred \
+    "$MODEL_DIR"/valid_b5.pred \
+    "$valid_gold_size"
 
 echo "evaluating valid set"
 python score.py "$MODEL_DIR"/valid_b5.pred "$RAW_DATA"/dev.orig.cmn \
