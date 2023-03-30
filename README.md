@@ -32,7 +32,7 @@ cd ../MT
 ```
 2) `preprocess-suisiann.sh`
 
-To apply the MT model to the output of ASR for cascade speech translation, run `cascade-asr.sh <run_id> /path/to/asr/output/file  
+To apply the MT model to the output of ASR for cascade speech translation, run `cascade-asr.sh <run_id> /path/to/asr/output/file`  
 - NOTE1: the expected format for the file is `<utterance_id> <asr_transcription>` per line
 - NOTE2: `<run_id>` is any unique identifier for this run of cascaded ASR-MT translation
 
