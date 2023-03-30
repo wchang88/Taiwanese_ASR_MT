@@ -1,8 +1,5 @@
 #!/bin/bash
 
-source /jet/home/wchang1/miniconda3/etc/profile.d/conda.sh
-conda activate 11692Speech3.9
-
 set -euo pipefail
 
 if [[ -z $FAIRSEQ_DIR ]]; then
