@@ -32,11 +32,9 @@ cd ../MT
 ```
 2) `preprocess-suisiann.sh`
 
-To apply the MT model to the output of ASR for cascade speech translation, 
-
-1) preprocess the ASR data using `preprocess-cascade-asr.sh /path/to/asr/output/file`
-- NOTE: the expected format for the file is `<utterance_id> <asr_transcription>` per line
-2) translate from Taiwanese to Mandarin with `cascade-asr.sh`
+To apply the MT model to the output of ASR for cascade speech translation, run `cascade-asr.sh <run_id> /path/to/asr/output/file  
+- NOTE1: the expected format for the file is `<utterance_id> <asr_transcription>` per line
+- NOTE2: `<run_id>` is any unique identifier for this run of cascaded ASR-MT translation
 
 
 ### ASR
