@@ -32,9 +32,11 @@ cd ../MT
 ```
 2) `preprocess-suisiann.sh`
 
-To apply the MT model to the output of ASR for cascade speech translation, place the corresponding ESPNet decode folder in `eval/EVAL_NAME/decode...`. Then run `preprocess-eval-asr.sh EVAL_NAME` to run and evaluate the cascade model.
+To apply the MT model to the output of ASR for cascade speech translation, 
 
-Alternatively, you can run `cascade_all.sh` to evaluate all the different runs in the `eval` folder.
+1) preprocess the ASR data using `preprocess-cascade-asr.sh /path/to/asr/output/file`
+- NOTE: the expected format for the file is `<utterance_id> <asr_transcription>` per line
+2) translate from Taiwanese to Mandarin with `cascade-asr.sh`
 
 
 ### ASR
