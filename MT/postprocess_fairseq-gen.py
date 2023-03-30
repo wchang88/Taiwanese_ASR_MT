@@ -25,13 +25,13 @@ if __name__ == '__main__':
         preds = {}
         line = f.readline()
         while line:
-            if line[0] == 'T':
+            if line[0] == 'D': # 'D' indicated the de-tokenized hypothesis
                # strip and clean
                splt = line.split()
                line_id = splt[0][2:] # lines always begin with <letter><dash><ID>
                if line_id in preds:
                    print("SOMETHING WENT WRONG! THERE WAS A DUPLICATE ID!!")
-               preds[line_id] = line[len(splt[0]) + 1:] # strip out the fairseq-gen identifiers
+               preds[line_id] = line[len(splt[0]) + len(splt[1]) + 2:] # strip out the fairseq-gen identifiers
             line = f.readline()
    
    align_pred_to_gold(preds, args.gold_size, args.aligned_pred)
